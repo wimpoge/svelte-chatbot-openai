@@ -6,6 +6,13 @@ export const actions = {
     const prompt = form.get("prompt");
     const openai_key = env.OPENAI_KEY;
 
+    if (!openai_key) {
+      return {
+          status: 400,
+          body: { data: "The OPENAI_KEY environment variable is empty. Please clone the repository from https://github.com/wimpoge/svelte-chatbot-openai and set up your own environment variables in OpenAI." }
+      };
+  }
+
     const body = {
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: prompt }],
